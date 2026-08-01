@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createTask } from "@/services/taskService";
+import { createTask, getAllTasks } from "@/services/taskService";
 import { createTaskSchema } from "@/validation/taskSchema";
 
 export async function POST(request: NextRequest) {
@@ -28,6 +28,19 @@ export async function POST(request: NextRequest) {
     console.error("Failed to create task:", err);
     return NextResponse.json(
       { error: "Failed to create task" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function GET() {
+  try {
+    const tasks = await getAllTasks();
+    return NextResponse.json(tasks, { status: 200 });
+  } catch (err) {
+    console.error("Failed to fetch tasks:", err);
+    return NextResponse.json(
+      { error: "Failed to fetch tasks" },
       { status: 500 }
     );
   }
