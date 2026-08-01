@@ -7,3 +7,7 @@ export async function createTask(input: CreateTaskInput): Promise<Task> {
     data: input,
   });
 }
+
+export async function getAllTasks(): Promise<Task[]> {
+  return prisma.task.findMany();
+}
