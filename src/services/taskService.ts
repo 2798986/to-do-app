@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import type { CreateTaskInput } from "@/validation/taskSchema";
+import type { CreateTaskInput, UpdateTaskInput } from "@/validation/taskSchema";
 import type { Task } from "@/generated/prisma/client";
 
 export async function createTask(input: CreateTaskInput): Promise<Task> {
@@ -10,4 +10,14 @@ export async function createTask(input: CreateTaskInput): Promise<Task> {
 
 export async function getAllTasks(): Promise<Task[]> {
   return prisma.task.findMany();
+}
+
+export async function updateTask(
+  id: number,
+  input: UpdateTaskInput
+): Promise<Task> {
+  return prisma.task.update({
+    where: { id },
+    data: input,
+  });
 }
