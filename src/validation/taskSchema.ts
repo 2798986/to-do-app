@@ -21,3 +21,5 @@ export const updateTaskSchema = z
   });
 
 export type UpdateTaskInput = z.infer<typeof updateTaskSchema>;
+
+export const taskIdSchema = z.coerce.number().int().positive();
