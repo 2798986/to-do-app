@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createTask, getAllTasks } from "@/services/taskService";
-import { createTaskSchema } from "@/validation/taskSchema";
+import {
+  createTaskSchema,
+  taskArchivedFilterSchema,
+} from "@/validation/taskSchema";
 
 export async function POST(request: NextRequest) {
   let body: unknown;
@@ -33,12 +36,26 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const archivedParam =
+    request.nextUrl.searchParams.get("archived") ?? undefined;
+
+  const parsed = taskArchivedFilterSchema.safeParse(archivedParam);
+
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: "Invalid archived query parameter" },
+      { status: 400 }
+    );
+  }
+
   try {
-    const tasks = await getAllTasks();
+    const tasks = await getAllTasks(parsed.data);
+
     return NextResponse.json(tasks, { status: 200 });
   } catch (err) {
     console.error("Failed to fetch tasks:", err);
+
     return NextResponse.json(
       { error: "Failed to fetch tasks" },
       { status: 500 }
