@@ -8,8 +8,14 @@ export async function createTask(input: CreateTaskInput): Promise<Task> {
   });
 }
 
-export async function getAllTasks(): Promise<Task[]> {
-  return prisma.task.findMany();
+export async function getAllTasks(
+  archived: boolean
+): Promise<Task[]> {
+  return prisma.task.findMany({
+    where: {
+      archived,
+    },
+  });
 }
 
 export async function updateTask(
