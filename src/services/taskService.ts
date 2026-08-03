@@ -21,3 +21,10 @@ export async function updateTask(
     data: input,
   });
 }
+
+export async function archiveTask(id: number): Promise<Task> {
+  return prisma.task.update({
+    where: { id },
+    data: { archived: true },
+  });
+}
