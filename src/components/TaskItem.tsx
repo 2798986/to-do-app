@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import type { TaskWithOverdue } from "@/types/task";
 import { EditTaskForm } from "./EditTaskForm";
 
@@ -10,6 +11,28 @@ type Props = {
 
 export default function TaskItem({ task }: Props) {
   const [isEditing, setIsEditing] = useState(false);
+  const router = useRouter();
+
+  const [isArchiving, setIsArchiving] = useState(false);
+  const [archiveError, setArchiveError] = useState<string | null>(null);
+
+  async function handleArchive() {
+  setArchiveError(null);
+  setIsArchiving(true);
+
+  const response = await fetch(`/api/tasks/${task.id}/archive`, {
+    method: "PATCH",
+  });
+
+  setIsArchiving(false);
+
+  if (!response.ok) {
+    setArchiveError("Could not archive task.");
+    return;
+  }
+
+  router.refresh();
+  }
 
   if (isEditing) {
     return (
@@ -38,8 +61,21 @@ export default function TaskItem({ task }: Props) {
         <p>⚠️ Overdue</p>
       )}
 
+      {archiveError && (
+        <p role="alert">
+          {archiveError}
+        </p>
+      )}
+
       <button onClick={() => setIsEditing(true)}>
         Edit
+      </button>
+
+      <button
+        onClick={handleArchive}
+        disabled={isArchiving}
+      >
+        {isArchiving ? "Archiving..." : "Archive"}
       </button>
     </li>
   );
