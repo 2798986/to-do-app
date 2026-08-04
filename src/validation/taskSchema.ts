@@ -30,3 +30,7 @@ export const taskArchivedFilterSchema = z
   .enum(["true", "false"])
   .optional()
   .transform((value) => value === "true");
+
+export const taskSortSchema = z
+  .enum(["topic", "status", "dueDate"])
+  .optional();
