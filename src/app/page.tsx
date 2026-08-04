@@ -1,4 +1,5 @@
 import { getAllTasks } from "@/services/taskService";
+import CreateTaskForm from "@/components/CreateTaskForm";
 
 export default async function Home() {
   const tasks = await getAllTasks(false);
@@ -6,6 +7,10 @@ export default async function Home() {
   return (
     <main>
       <h1>Tasks</h1>
+
+      <CreateTaskForm />
+
+      <hr />
 
       {tasks.length === 0 ? (
         <p>No tasks yet.</p>
