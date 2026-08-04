@@ -9,13 +9,19 @@ export async function createTask(input: CreateTaskInput): Promise<Task> {
 }
 
 export async function getAllTasks(
-  archived: boolean
+  archived: boolean,
+  sortBy?: "topic" | "status" | "dueDate"
 ): Promise<Task[]> {
   return prisma.task.findMany({
-    where: {
-      archived,
-    },
-  });
+  where: {
+    archived,
+  },
+  orderBy: sortBy
+    ? {
+        [sortBy]: "asc",
+      }
+    : undefined,
+});
 }
 
 export async function updateTask(

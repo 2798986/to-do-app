@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createTask, getAllTasks } from "@/services/taskService";
 import {
   createTaskSchema,
-  taskArchivedFilterSchema,
+  taskArchivedFilterSchema, taskSortSchema,
 } from "@/validation/taskSchema";
 
 export async function POST(request: NextRequest) {
@@ -40,17 +40,34 @@ export async function GET(request: NextRequest) {
   const archivedParam =
     request.nextUrl.searchParams.get("archived") ?? undefined;
 
-  const parsed = taskArchivedFilterSchema.safeParse(archivedParam);
+  const sortParam =
+    request.nextUrl.searchParams.get("sortBy") ?? undefined;
 
-  if (!parsed.success) {
+  const parsedArchived =
+    taskArchivedFilterSchema.safeParse(archivedParam);
+
+  if (!parsedArchived.success) {
     return NextResponse.json(
       { error: "Invalid archived query parameter" },
       { status: 400 }
     );
   }
 
+  const parsedSort =
+    taskSortSchema.safeParse(sortParam);
+
+  if (!parsedSort.success) {
+    return NextResponse.json(
+      { error: "Invalid sortBy query parameter" },
+      { status: 400 }
+    );
+  }
+
   try {
-    const tasks = await getAllTasks(parsed.data);
+    const tasks = await getAllTasks(
+      parsedArchived.data,
+      parsedSort.data
+    );
 
     return NextResponse.json(tasks, { status: 200 });
   } catch (err) {
