@@ -71,12 +71,14 @@ export default function TaskItem({ task }: Props) {
         Edit
       </button>
 
-      <button
-        onClick={handleArchive}
-        disabled={isArchiving}
-      >
-        {isArchiving ? "Archiving..." : "Archive"}
-      </button>
+      {!task.archived && (
+        <button
+          onClick={handleArchive}
+          disabled={isArchiving}
+        >
+          {isArchiving ? "Archiving..." : "Archive"}
+        </button>
+      )}
     </li>
   );
 }
