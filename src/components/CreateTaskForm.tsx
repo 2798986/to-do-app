@@ -54,87 +54,85 @@ export default function CreateTaskForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Create Task</h2>
+    <section className="create-task-card">
+      <h2>Create New Task</h2>
 
-      <div>
-        <label htmlFor="title">Title</label>
-        <br />
-        <input
-          id="title"
-          name="title"
-          type="text"
-          required
-        />
-      </div>
+      <form onSubmit={handleSubmit} className="task-form">
 
-      <br />
+        <div className="form-group">
+          <label htmlFor="title">Title</label>
+          <input
+            id="title"
+            name="title"
+            type="text"
+            placeholder="Enter task title"
+            required
+          />
+        </div>
 
-      <div>
-        <label htmlFor="description">Description</label>
-        <br />
-        <textarea
-          id="description"
-          name="description"
-          required
-        />
-      </div>
+        <div className="form-group">
+          <label htmlFor="description">Description</label>
+          <textarea
+            id="description"
+            name="description"
+            rows={4}
+            placeholder="Describe the task..."
+            required
+          />
+        </div>
 
-      <br />
+        <div className="form-row">
 
-      <div>
-        <label htmlFor="topic">Topic</label>
-        <br />
-        <input
-          id="topic"
-          name="topic"
-          type="text"
-          required
-        />
-      </div>
+          <div className="form-group">
+            <label htmlFor="topic">Topic</label>
+            <input
+              id="topic"
+              name="topic"
+              type="text"
+              placeholder="e.g. Mathematics"
+              required
+            />
+          </div>
 
-      <br />
+          <div className="form-group">
+            <label htmlFor="status">Status</label>
+            <select
+              id="status"
+              name="status"
+              defaultValue="TODO"
+            >
+              <option value="TODO">TODO</option>
+              <option value="IN_PROGRESS">IN PROGRESS</option>
+              <option value="DONE">DONE</option>
+            </select>
+          </div>
 
-      <div>
-        <label htmlFor="status">Status</label>
-        <br />
-        <select
-          id="status"
-          name="status"
-          defaultValue="TODO"
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="dueDate">Due Date</label>
+          <input
+            id="dueDate"
+            name="dueDate"
+            type="date"
+          />
+        </div>
+
+        {error && (
+          <p className="error-message">
+            ⚠ {error}
+          </p>
+        )}
+
+        <button
+          className="submit-button"
+          type="submit"
+          disabled={isSubmitting}
         >
-          <option value="TODO">TODO</option>
-          <option value="IN_PROGRESS">IN_PROGRESS</option>
-          <option value="DONE">DONE</option>
-        </select>
-      </div>
+          {isSubmitting ? "Creating..." : "Create Task"}
+        </button>
 
-      <br />
-
-      <div>
-        <label htmlFor="dueDate">Due Date</label>
-        <br />
-        <input
-          id="dueDate"
-          name="dueDate"
-          type="date"
-        />
-      </div>
-
-      <br />
-
-      {error && (
-        <p style={{ color: "red" }}>
-          {error}
-        </p>
-      )}
-
-      <button
-        type="submit"
-        disabled={isSubmitting}
-      >
-        {isSubmitting ? "Creating..." : "Create Task"}
-      </button>
-    </form>
+      </form>
+    </section>
   );
 }
