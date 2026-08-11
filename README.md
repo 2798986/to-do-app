@@ -20,6 +20,32 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Running the tests
+
+The full test suite runs with a single command from the project root:
+
+```bash
+npm test
+```
+
+This runs every test once and exits (it does not start a watch process).
+
+### What the tests cover
+
+- `tests/isOverdue.test.ts` — the overdue rule, which is derived from the due
+  date rather than stored in the database or treated as a status.
+- `tests/taskService.test.ts` — the service layer, run against a real SQLite
+  database: creating a task, editing a task, archiving a task, and sorting.
+
+### Test database
+
+The tests never touch `dev.db`. Before the suite runs, `tests/globalSetup.ts`
+deletes any previous `test.db`, then recreates the schema by applying the
+committed migrations with `prisma migrate deploy`. `vitest.config.ts` sets
+`DATABASE_URL` to `file:./test.db` so that the Prisma client used by the tests
+connects to that throwaway file. Every task is deleted between tests, so no test
+depends on data created by another one.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

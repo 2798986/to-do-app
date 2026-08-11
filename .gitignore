@@ -44,3 +44,9 @@ next-env.d.ts
 
 # database
 /dev.db
+
+# throwaway test database (recreated by the test suite on every run)
+/test.db
+/test.db-journal
+/test.db-wal
+/test.db-shm
