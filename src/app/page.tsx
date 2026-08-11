@@ -73,14 +73,7 @@ export default async function Home({
               archived: false,
               sortBy,
             })}
-            style={{
-              padding: "10px 18px",
-              borderRadius: "8px",
-              background: "#2563eb",
-              color: "white",
-              textDecoration: "none",
-              fontWeight: 600,
-            }}
+            className="view-tasks-button"
           >
             📋 View Active Tasks
           </Link>
@@ -90,14 +83,7 @@ export default async function Home({
               archived: true,
               sortBy,
             })}
-            style={{
-              padding: "10px 18px",
-              borderRadius: "8px",
-              background: "#2563eb",
-              color: "white",
-              textDecoration: "none",
-              fontWeight: 600,
-            }}
+            className="view-tasks-button"
           >
             🗄️ View Archived Tasks
           </Link>
@@ -131,7 +117,7 @@ export default async function Home({
               archived: showArchived,
               sortBy: "topic",
             })}
-            style={sortButtonStyle}
+            className="sort-button"
           >
             🏷 Topic
           </Link>
@@ -141,7 +127,7 @@ export default async function Home({
               archived: showArchived,
               sortBy: "status",
             })}
-            style={sortButtonStyle}
+            className="sort-button"
           >
             🔵 Status
           </Link>
@@ -151,7 +137,7 @@ export default async function Home({
               archived: showArchived,
               sortBy: "dueDate",
             })}
-            style={sortButtonStyle}
+            className="sort-button"
           >
             📅 Due Date
           </Link>
@@ -160,7 +146,7 @@ export default async function Home({
             href={buildQueryString({
               archived: showArchived,
             })}
-            style={clearButtonStyle}
+            className="clear-sorting-button"
           >
             ✕ Clear Sorting
           </Link>
@@ -205,23 +191,3 @@ export default async function Home({
     </main>
   );
 }
-
-const sortButtonStyle = {
-  textDecoration: "none",
-  padding: "10px 18px",
-  borderRadius: "10px",
-  background: "#f3f4f6",
-  color: "#111827",
-  border: "1px solid #d1d5db",
-  fontWeight: 600,
-};
-
-const clearButtonStyle = {
-  textDecoration: "none",
-  padding: "10px 18px",
-  borderRadius: "10px",
-  background: "#ffffff",
-  color: "#dc2626",
-  border: "1px solid #fecaca",
-  fontWeight: 600,
-};
