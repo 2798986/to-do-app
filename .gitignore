@@ -52,3 +52,6 @@ next-env.d.ts
 /test.db-journal
 /test.db-wal
 /test.db-shm
+
+# raw Claude data export (working file only - never commit)
+/_export.json
