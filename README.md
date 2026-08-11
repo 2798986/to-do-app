@@ -315,3 +315,26 @@ tests/
 vitest.config.ts
 prisma.config.ts
 ```
+
+---
+
+## AI Usage
+
+This repository makes use of AI code generation using the following tools:
+Claude-Desktop[Claude Sonnet 5], Claude-Desktop[Claude Opus 5].
+
+This repository does not use AI in-line editing tools.
+
+This repository makes use of AI code-review using the following tools:
+Claude-Desktop[Claude Sonnet 5], Claude-Desktop[Claude Opus 5].
+
+Claude Sonnet 5 was used for the backend and the user interface. Claude Opus 5
+was used for the automated tests and the documentation. A detailed record of how
+AI was used, reviewed and corrected during the project — including the instances
+where AI output was rejected or redirected — is in
+[docs/AI_USAGE.md](docs/AI_USAGE.md).
+
+---
+
+AI Declaration: The preceding document was generated with the assistance of the
+following: Claude-Desktop[Claude Opus 5]
